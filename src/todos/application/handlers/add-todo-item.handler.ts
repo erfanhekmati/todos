@@ -15,6 +15,7 @@ export class AddTodoItemHandler implements ICommandHandler<AddTodoItemCommand> {
       priority,
       todoListId,
     );
-    this.todoListsRepository.addItemId(todoListId, String(item._id));
+    await this.todoListsRepository.addItemId(todoListId, String(item._id));
+    return item;
   }
 }
