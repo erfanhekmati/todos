@@ -28,6 +28,16 @@ export class TodoItemsRepository {
     });
   }
 
+  public async update(
+    _id: string,
+    newFields: { description?: string; priority?: number },
+  ) {
+    const item = await this.todoItemsModel.findOne({ _id });
+    Object.assign(item, newFields);
+    await item.save();
+    return item;
+  }
+
   public async remove(_id: string) {
     const item = await this.findById({ _id });
     await this.todoItemsModel.deleteOne({ _id });

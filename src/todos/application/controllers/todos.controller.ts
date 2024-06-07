@@ -10,6 +10,7 @@ import {
 import {
   AddItemToTodoListDto,
   CreateTodoListDto,
+  UpdateTodoItemDto,
   UpdateTodoListDto,
 } from '../../domain';
 import { TodosService } from '../services/todos.service';
@@ -81,5 +82,16 @@ export class TodosController {
     @CurrentUser('userId') userId: string,
   ) {
     return this.todosService.removeItemFromList(userId, id);
+  }
+
+  @ApiOperation({ summary: 'Updates a todo item' })
+  @ApiBearerAuth()
+  @Put('update-item/:id')
+  updateTodoItem(
+    @Param('id') id: string,
+    @Body() dto: UpdateTodoItemDto,
+    @CurrentUser('userId') userId: string,
+  ) {
+    return this.todosService.updateItem(userId, id, dto);
   }
 }

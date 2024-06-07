@@ -3,6 +3,7 @@ import { CommandBus } from '@nestjs/cqrs';
 import {
   AddItemToTodoListDto,
   CreateTodoListDto,
+  UpdateTodoItemDto,
   UpdateTodoListDto,
 } from '../../domain';
 import {
@@ -13,6 +14,7 @@ import {
   FindTodoListByIdCommand,
   RemoveTodoItemCommand,
   RemoveTodoListCommand,
+  UpdateTodoItemCommand,
   UpdateTodoListCommand,
 } from '../commands';
 
@@ -80,5 +82,11 @@ export class TodosService {
     return await this.commandBus.execute(
       new RemoveTodoItemCommand(userId, _id),
     );
+  }
+
+  public async updateItem(userId: string, _id: string, dto: UpdateTodoItemDto) {
+    const item = await this.findOneItem(_id);
+    await this.findOneList(userId, String(item.todoList));
+    return await this.commandBus.execute(new UpdateTodoItemCommand(_id, dto));
   }
 }
