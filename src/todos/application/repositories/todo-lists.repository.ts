@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { TodoList } from '../../domain';
+import { ObjectId } from 'mongodb';
 
 @Injectable()
 export class TodoListsRepository {
@@ -30,6 +31,15 @@ export class TodoListsRepository {
 
   public async create(userId: string, title: string) {
     return await this.todoListsModel.create({ user: userId, title });
+  }
+
+  public async update(_id: string, title: string) {
+    const list = await this.todoListsModel.findOne({
+      _id,
+    });
+    list.title = title;
+    await list.save();
+    return list;
   }
 
   public async remove(userId: string, _id: string) {

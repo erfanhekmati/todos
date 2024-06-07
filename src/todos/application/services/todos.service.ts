@@ -1,6 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
-import { AddItemToTodoListDto, CreateTodoListDto } from '../../domain';
+import {
+  AddItemToTodoListDto,
+  CreateTodoListDto,
+  UpdateTodoListDto,
+} from '../../domain';
 import {
   AddTodoItemCommand,
   CreateTodoListCommand,
@@ -9,6 +13,7 @@ import {
   FindTodoListByIdCommand,
   RemoveTodoItemCommand,
   RemoveTodoListCommand,
+  UpdateTodoListCommand,
 } from '../commands';
 
 @Injectable()
@@ -33,6 +38,15 @@ export class TodosService {
     return await this.commandBus.execute(
       new CreateTodoListCommand(title, userId),
     );
+  }
+
+  public async updateList(
+    userId: string,
+    _id: string,
+    { title }: UpdateTodoListDto,
+  ) {
+    await this.findOneList(userId, _id);
+    return await this.commandBus.execute(new UpdateTodoListCommand(_id, title));
   }
 
   public async findOneItem(_id: string) {

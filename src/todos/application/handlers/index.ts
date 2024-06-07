@@ -5,6 +5,7 @@ export * from './add-todo-item.handler';
 export * from './remove-todo-item.handler';
 export * from './remove-todo-list.handler';
 export * from './find-todo-item-by-id.handler';
+export * from './update-todo-list.handler';
 
 import { CreateTodoListHandler } from './create-todo-list.handler';
 import { FindAllTodoListsHandler } from './find-all-todo-lists.handler';
@@ -13,6 +14,7 @@ import { AddTodoItemHandler } from './add-todo-item.handler';
 import { RemoveTodoItemHandler } from './remove-todo-item.handler';
 import { RemoveTodoListHandler } from './remove-todo-list.handler';
 import { FindTodoItemByIdHandler } from './find-todo-item-by-id.handler';
+import { UpdateTodoListHandler } from './update-todo-list.handler';
 export const handlers = [
   CreateTodoListHandler,
   FindAllTodoListsHandler,
@@ -21,4 +23,5 @@ export const handlers = [
   RemoveTodoItemHandler,
   RemoveTodoListHandler,
   FindTodoItemByIdHandler,
+  UpdateTodoListHandler,
 ];

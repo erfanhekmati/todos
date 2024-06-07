@@ -45,15 +45,16 @@ export class TodosController {
     return this.todosService.createList(userId, createTodolistDto);
   }
 
-  // @ApiOperation({ summary: 'Updates a todo list' })
-  // @ApiBearerAuth()
-  // @Put()
-  // updateList(
-  //   @Body() updateTodolistDto: UpdateTodoListDto,
-  //   @CurrentUser('userId') userId: string,
-  // ) {
-  //   // return this.todosService.updateList(userId, updateTodolistDto);
-  // }
+  @ApiOperation({ summary: 'Updates a todo list' })
+  @ApiBearerAuth()
+  @Put(':id')
+  updateList(
+    @Param('id') id: string,
+    @Body() updateTodolistDto: UpdateTodoListDto,
+    @CurrentUser('userId') userId: string,
+  ) {
+    return this.todosService.updateList(userId, id, updateTodolistDto);
+  }
 
   @ApiOperation({ summary: 'Adds an item to a todo list' })
   @ApiBearerAuth()
